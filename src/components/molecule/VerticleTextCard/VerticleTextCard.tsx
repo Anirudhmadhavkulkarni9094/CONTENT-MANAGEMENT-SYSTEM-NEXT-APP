@@ -12,6 +12,7 @@ function VerticleTextCard({
     slug: string;
     featuredImage: string;
     author?: { name?: string };
+    excerpt: string;
   };
 }) {
   return (
