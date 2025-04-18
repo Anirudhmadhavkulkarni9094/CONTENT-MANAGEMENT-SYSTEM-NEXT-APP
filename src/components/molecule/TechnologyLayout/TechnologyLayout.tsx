@@ -11,6 +11,7 @@ interface BlogPreview {
   author: {
     name: string;
   };
+  excerpt : string;
   featuredImage: string;
   metaDescription: string;
   createdAt: string;

@@ -16,6 +16,7 @@ function ResearchLayout() {
             "slug": "from-rest-to-graphql-migrating-your-api-layer-in-nextjs",
             "metaDescription": "From REST to GraphQL: Migrating Your API Layer in Next.js",
             "category": "Technology",
+            "excerpt" : "Technology",
             "tags": [
                 "GraphQL",
                 "Next.js",
@@ -54,6 +55,7 @@ function ResearchLayout() {
                 "bio": "A passionate developer and tech enthusiast.",
                 "profileLink": "https://anirudh-kulkarni.vercel.app/"
             },
+            "excerpt" : "Technology",
             "_id": "67f415e2adde9a4b79173174",
             "title": "Optimizing Image Delivery with Vercel & Next.js Image Component",
             "slug": "optimizing-image-delivery-with-vercel-and-nextjs-image-component",
@@ -97,6 +99,7 @@ function ResearchLayout() {
                 "bio": "A passionate developer and tech enthusiast.",
                 "profileLink": "https://anirudh-kulkarni.vercel.app/"
             },
+            "excerpt" : "Technology",
             "_id": "67f415e2adde9a4b791731744",
             "title": "Optimizing Image Delivery with Vercel & Next.js Image Component",
             "slug": "optimizing-image-delivery-with-vercel-and-nextjs-image-component",
