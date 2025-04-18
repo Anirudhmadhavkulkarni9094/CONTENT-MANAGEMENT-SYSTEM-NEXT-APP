@@ -1,0 +1,42 @@
+[
+  {
+    "title": "How to Get Started with Technology: A Beginner's Guide",
+    "slug": "how-to-get-started-with-technology-a-beginners-guide",
+    "metaDescription": "New to the world of tech? This beginner-friendly guide walks you through the essentials—from using smartphones and the internet to learning new apps safely and confidently. Start your tech journey today, one tap at a time!",
+    "category": "ai",
+    "tags": [
+      "Technology"
+    ],
+    "readTime": "1 min read",
+    "featuredImage": {
+      "url": "https://vwjsevjtpenomupn.public.blob.vercel-storage.com/blog-images/1744994985607-download-UvzcQdv4PKUF8r6NPjbjueaEbuE423.jpeg"
+    },
+    "author": {
+      "name": "Anirudh Kulkarni",
+      "avatar": null,
+      "bio": "A passionate developer and tech enthusiast.",
+      "profileLink": "https://anirudh-kulkarni.vercel.app/"
+    }
+  },
+  {
+    "title": "Top 5 Tech Skills Everyone Should Learn in 2025",
+    "slug": "top-5-tech-skills-everyone-should-learn-in-2025",
+    "metaDescription": "Want to future-proof your skills? Discover the top 5 tech skills everyone should learn in 2025—from digital basics to AI awareness. Whether you're a student, professional, or curious beginner, these must-have skills will keep you ahead in a tech-driven world.",
+    "category": "career",
+    "tags": [
+      "Technology",
+      "Education",
+      "Career"
+    ],
+    "readTime": "2 min read",
+    "featuredImage": {
+      "url": "https://vwjsevjtpenomupn.public.blob.vercel-storage.com/blog-images/1744996680445-AIML-2-SAdEugoyZAejqpgeAet2pGMKgUF7AN.jpeg"
+    },
+    "author": {
+      "name": "Anirudh Kulkarni",
+      "avatar": null,
+      "bio": "A passionate developer and tech enthusiast.",
+      "profileLink": "https://anirudh-kulkarni.vercel.app/"
+    }
+  }
+]
