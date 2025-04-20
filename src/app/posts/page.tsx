@@ -1,6 +1,5 @@
 "use client"
 import Image from "next/image";
-import { Metadata } from "next";
 import { FALL_BACK_IMAGE } from "../constants/imageConstant";
 
 interface Post {
