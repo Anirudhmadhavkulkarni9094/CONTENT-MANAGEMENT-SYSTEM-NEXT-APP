@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import { Metadata } from "next";
 import { FALL_BACK_IMAGE } from "../constants/imageConstant";
@@ -31,7 +32,7 @@ export default async function BlogPage() {
 
   try {
     // Use absolute URL on the server
-    const res = await fetch("http://localhost:3000/api/blog", {
+    const res = await fetch("/api/blog", {
       next: { revalidate: 60 }, // ISR support if needed
     });
     
