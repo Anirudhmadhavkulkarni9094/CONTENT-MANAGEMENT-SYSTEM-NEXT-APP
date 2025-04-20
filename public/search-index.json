@@ -38,5 +38,43 @@
       "bio": "A passionate developer and tech enthusiast.",
       "profileLink": "https://anirudh-kulkarni.vercel.app/"
     }
+  },
+  {
+    "title": "TEST DELETE",
+    "slug": "test-delete",
+    "metaDescription": "TEST DELETE",
+    "category": "ai",
+    "tags": [
+      "TEST DELETE"
+    ],
+    "readTime": "1 min read",
+    "featuredImage": {
+      "url": "https://vwjsevjtpenomupn.public.blob.vercel-storage.com/blog-images/1745140120539-download-ZDXV5Xr6Na7TM02GMc8fQZgUK0IKeV.jpeg"
+    },
+    "author": {
+      "name": "Anirudh Kulkarni",
+      "avatar": null,
+      "bio": "A passionate developer and tech enthusiast.",
+      "profileLink": "https://anirudh-kulkarni.vercel.app/"
+    }
+  },
+  {
+    "title": "TESTING DELETE",
+    "slug": "testing-delete",
+    "metaDescription": "TESTING DELETE",
+    "category": "ai",
+    "tags": [
+      "TESTING DELETE"
+    ],
+    "readTime": "1 min read",
+    "featuredImage": {
+      "url": "https://vwjsevjtpenomupn.public.blob.vercel-storage.com/blog-images/1745140729613-download-C3CiflMpEmgfMwnjv5BcUQw1pLio80.jpeg"
+    },
+    "author": {
+      "name": "Anirudh Kulkarni",
+      "avatar": null,
+      "bio": "A passionate developer and tech enthusiast.",
+      "profileLink": "https://anirudh-kulkarni.vercel.app/"
+    }
   }
 ]
