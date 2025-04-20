@@ -31,7 +31,7 @@ export default async function BlogPage() {
 
   try {
     // Use absolute URL on the server
-    const res = await fetch("https://content-management-system-next-app.vercel.app/api/blog", {
+    const res = await fetch("http://localhost:3000/api/blog", {
       next: { revalidate: 60 }, // ISR support if needed
     });
     
