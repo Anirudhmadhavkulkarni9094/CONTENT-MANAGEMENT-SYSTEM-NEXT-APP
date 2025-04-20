@@ -1,4 +1,6 @@
-"use client"
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FALL_BACK_IMAGE } from "../constants/imageConstant";
 
@@ -11,40 +13,29 @@ interface Post {
   featuredImage?: string;
 }
 
-// 🔄 Revalidate every 60 seconds (ISR)
-export const revalidate = 60;
+export default function BlogPage() {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-// // 🏆 SEO Metadata (Dynamic)
-// export async function generateMetadata(): Promise<Metadata> {
-//   return {
-//     title: "Latest Blogs | My Blog",
-//     description: "Read the latest blogs on technology, business, and more!",
-//     openGraph: {
-//       description: "Explore top articles on tech, business, and lifestyle.",
-//       type: "website",
-//     },
-//   };
-// }
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch("/api/blog");
 
-export default async function BlogPage() {
-  let posts: Post[] = [];
+        if (!res.ok) {
+          throw new Error("Failed to fetch blog posts");
+        }
 
-  try {
-    // Use absolute URL on the server
-    const res = await fetch("/api/blog", {
-      next: { revalidate: 60 }, // ISR support if needed
-    });
-    
-    if (!res.ok) {
-      throw new Error("Failed to fetch blog posts");
-    }
-    
-    const json = await res.json();
-    posts = json.data;
-  } catch (error) {
-    console.error("Error fetching blog posts:", error);
-  }
-  console.log(posts[0].featuredImage)
+        const json = await res.json();
+        setPosts(json.data);
+      } catch (err: any) {
+        console.error("Error fetching blog posts:", err);
+        setError(err.message || "Something went wrong");
+      }
+    };
+
+    fetchPosts();
+  }, []);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -60,14 +51,18 @@ export default async function BlogPage() {
           />
           <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-6 text-white">
             <h1 className="text-3xl font-bold">{posts[0].title}</h1>
-            <p className="text-gray-300">{posts[0].category?.toLocaleUpperCase() || "No summary available."}</p>
+            <p className="text-gray-300">
+              {posts[0].category?.toLocaleUpperCase() || "No summary available."}
+            </p>
           </div>
         </div>
       )}
 
       {/* Blog Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.length === 0 ? (
+        {error ? (
+          <p className="text-red-500 col-span-full text-center">{error}</p>
+        ) : posts.length === 0 ? (
           <p className="text-center text-gray-500 col-span-full">No posts found.</p>
         ) : (
           posts.map((post: Post) => (
@@ -85,7 +80,9 @@ export default async function BlogPage() {
                   })}{" "}
                   by {post?.author?.name || "Anirudh Kulkarni"}
                 </p>
-                <p className="text-gray-700 mt-2">{post?.category?.toLocaleUpperCase()  || "No summary available."}</p>
+                <p className="text-gray-700 mt-2">
+                  {post?.category?.toLocaleUpperCase() || "No summary available."}
+                </p>
                 <a
                   href={`/blog/${post._id}`}
                   className="inline-block mt-4 text-blue-600 hover:underline"
