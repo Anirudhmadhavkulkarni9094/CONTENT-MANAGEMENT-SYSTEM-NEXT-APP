@@ -28,9 +28,9 @@ export default function BlogPage() {
 
         const json = await res.json();
         setPosts(json.data);
-      } catch (err: any) {
+      } catch (err) {
         console.error("Error fetching blog posts:", err);
-        setError(err.message || "Something went wrong");
+        setError("Something went wrong");
       }
     };
 
