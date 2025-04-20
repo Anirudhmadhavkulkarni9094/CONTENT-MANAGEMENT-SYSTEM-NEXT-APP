@@ -15,17 +15,17 @@ interface Post {
 // 🔄 Revalidate every 60 seconds (ISR)
 export const revalidate = 60;
 
-// 🏆 SEO Metadata (Dynamic)
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Latest Blogs | My Blog",
-    description: "Read the latest blogs on technology, business, and more!",
-    openGraph: {
-      description: "Explore top articles on tech, business, and lifestyle.",
-      type: "website",
-    },
-  };
-}
+// // 🏆 SEO Metadata (Dynamic)
+// export async function generateMetadata(): Promise<Metadata> {
+//   return {
+//     title: "Latest Blogs | My Blog",
+//     description: "Read the latest blogs on technology, business, and more!",
+//     openGraph: {
+//       description: "Explore top articles on tech, business, and lifestyle.",
+//       type: "website",
+//     },
+//   };
+// }
 
 export default async function BlogPage() {
   let posts: Post[] = [];
