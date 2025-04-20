@@ -47,7 +47,7 @@ export default async function BlogPage() {
           <Image
             width={800}
             height={400}
-            src={posts[0].featuredImage || FALL_BACK_IMAGE}
+            src={posts[0]?.featuredImage || FALL_BACK_IMAGE}
             alt="Featured Blog"
             className="w-full h-64 object-cover"
           />
