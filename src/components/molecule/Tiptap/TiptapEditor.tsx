@@ -26,12 +26,7 @@ const TiptapEditor = () => {
   const editor = useEditor({
     extensions: Extensions(lowlight),
     content: `
-      <h2>Welcome to Tiptap!</h2>
-      <p>This editor is loaded with powerful extensions 🧩</p>
-      <p>Experiment with headings and images:</p>
-      <h1>Heading 1</h1>
-      <h2>Heading 2</h2>
-      <a href="https://tiptap.dev" target="_blank">Visit Tiptap</a>
+      
     `,
   });
 
@@ -79,7 +74,7 @@ const TiptapEditor = () => {
         ...data,
         content: blocks,
       }).then(res=>{console.log(res.data);
-        router.push("/content-manager/posts");
+        router.push("/posts");
       }).catch(er=>console.log(er.message));
     console.log({
         content :blocks,

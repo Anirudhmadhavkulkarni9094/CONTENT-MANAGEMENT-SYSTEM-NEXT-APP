@@ -28,63 +28,64 @@ interface SidebarProps {
 function Sidebar({ setData, data }: SidebarProps) {
   const [title, setTitle] = useState('');
   const [excerpt, setExcerpt] = useState('');
-  const [category, setCategory] = useState('tech');
+  const [category, setCategory] = useState('ai');
   const [tags, setTags] = useState<string[]>([]);
-  const [relatedArticles, setRelatedArticles] = useState<{ title: string; link: string }[]>([]);
   const [featuredImage, setFeaturedImage] = useState<string>('');
   const [allArticles, setAllArticles] = useState<Article[]>([]);
   const [selectedArticles, setSelectedArticles] = useState<Article[]>([]);
+  const [relatedArticles, setRelatedArticles] = useState<{ title: string; link: string }[]>([]);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
 
+  
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const res = await axios.get(`/api/blog/${category}`);
+        console.log(res.data)
+        setAllArticles(res.data.data);
+      } catch (error) {
+        console.error('Error fetching articles:', error);
+      }
+    };
+
+    fetchArticles();
+  }, [category]);
   const filteredArticles = allArticles?.filter(
     (a) =>
       a.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
       !selectedArticles.some((sel) => sel.id === a.id)
   );
 
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        
-        await axios.get(`/api/blog/${category}`).then(res=>{
-          console.log(res.data)
-          setAllArticles(res.data.blogs);
-        })
-      } catch (error) {
-        console.error('Error fetching articles:', error);
-      }
-    };
-  
-    fetchArticles();
-  }, [category]);
+  const handleSelectArticle = (article: Article) => {
+    if (!selectedArticles.some((a) => a.id === article.id)) {
+      setSelectedArticles((prev) => [...prev, article]);
+    }
+    setSearchTerm('');
+    setShowDropdown(false);
+  };
 
- const handleSelectArticle = (article: Article) => {
-  if (!selectedArticles.some((a) => a.id === article.id)) {
-    setSelectedArticles([...selectedArticles, article]);
-    setRelatedArticles([
-        ...relatedArticles,
-      { title: article.title, link: `/blog/${article.id}` },
-    ]);
-    console.log(relatedArticles)
-  }
-  setSearchTerm('');
-  setShowDropdown(false);
-};
-
-const handleRemoveArticle = (article: Article) => {
-  setSelectedArticles(selectedArticles.filter((a) => a.id !== article.id));
-  setRelatedArticles(relatedArticles.filter((ra) => ra.link !== `/blog/${article.id}`));
-};
-
- 
+  const handleRemoveArticle = (article: Article) => {
+    setSelectedArticles((prev) => prev.filter((a) => a.id !== article.id));
+  };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
     setShowDropdown(true);
   };
 
+  // Sync relatedArticles from selectedArticles
+  useEffect(() => {
+    const mapped = selectedArticles.map((a) => ({
+      title: a.title,
+      link: `/blog/${a.id}`,
+    }));
+    setRelatedArticles(mapped);
+  }, [selectedArticles]);
+
+  // Push updated data to parent
   useEffect(() => {
     if (
       title !== data.title ||
@@ -109,7 +110,6 @@ const handleRemoveArticle = (article: Article) => {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-
       const formData = new FormData();
       formData.append('file', file);
 
@@ -129,7 +129,7 @@ const handleRemoveArticle = (article: Article) => {
   };
 
   return (
-    <div className="space-y-4 p-4 bg-white shadow rounded-lg w-full">
+    <div className="space-y-4 p-4 bg-white shadow rounded-lg w-full min-h-screen overflow-scroll">
       <input
         type="text"
         placeholder="Title"
@@ -145,24 +145,23 @@ const handleRemoveArticle = (article: Article) => {
         className="w-full px-4 py-2 border border-gray-300 rounded-md"
       />
 
-<select
-  value={category}
-  onChange={(e) => setCategory(e.target.value)}
-  className="w-full px-4 py-2 border border-gray-300 rounded-md"
->
-  <option value="">Select Category</option>
-  <option value="ai">Artificial Intelligence</option>
-  <option value="webdev">Web Development</option>
-  <option value="mobile">Mobile App Development</option>
-  <option value="cloud">Cloud & DevOps</option>
-  <option value="cybersecurity">Cybersecurity</option>
-  <option value="datascience">Data Science</option>
-  <option value="programming">Programming</option>
-  <option value="reviews">Tech Reviews</option>
-  <option value="web3">Blockchain & Web3</option>
-  <option value="career">Tech Careers</option>
-</select>
-
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        className="w-full px-4 py-2 border border-gray-300 rounded-md"
+      >
+        <option value="">Select Category</option>
+        <option value="ai">Artificial Intelligence</option>
+        <option value="webdev">Web Development</option>
+        <option value="mobile">Mobile App Development</option>
+        <option value="cloud">Cloud & DevOps</option>
+        <option value="cybersecurity">Cybersecurity</option>
+        <option value="datascience">Data Science</option>
+        <option value="programming">Programming</option>
+        <option value="reviews">Tech Reviews</option>
+        <option value="web3">Blockchain & Web3</option>
+        <option value="career">Tech Careers</option>
+      </select>
 
       <input
         type="text"
@@ -204,9 +203,9 @@ const handleRemoveArticle = (article: Article) => {
 
         {showDropdown && filteredArticles?.length > 0 && (
           <ul className="absolute w-full bg-white border rounded-md shadow-lg max-h-40 overflow-y-auto z-10">
-            {filteredArticles.map((article) => (
+            {filteredArticles.map((article, index) => (
               <li
-                key={article.id}
+                key={index}
                 className="p-2 cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSelectArticle(article)}
               >
@@ -217,9 +216,9 @@ const handleRemoveArticle = (article: Article) => {
         )}
 
         <div className="mt-2 space-y-1">
-          {selectedArticles.map((article) => (
+          {selectedArticles.map((article, index) => (
             <div
-              key={article.id}
+              key={index}
               className="flex justify-between items-center bg-gray-200 p-2 rounded-md"
             >
               <span>{article.title}</span>
