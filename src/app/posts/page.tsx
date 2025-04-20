@@ -32,8 +32,16 @@ export default async function BlogPage() {
 
   try {
     // Use absolute URL on the server
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/blog`);
-    posts = res.data.data;
+    const res = await fetch("https://content-management-system-next-app.vercel.app/api/blog", {
+      next: { revalidate: 60 }, // ISR support if needed
+    });
+    
+    if (!res.ok) {
+      throw new Error("Failed to fetch blog posts");
+    }
+    
+    const json = await res.json();
+    posts = json.data;
   } catch (error) {
     console.error("Error fetching blog posts:", error);
   }
