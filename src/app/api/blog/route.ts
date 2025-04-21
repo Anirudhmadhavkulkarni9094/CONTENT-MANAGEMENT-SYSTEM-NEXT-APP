@@ -79,16 +79,6 @@ export async function POST(req: Request) {
 
     await newBlog.save();
 
-    // Update search index
-    const searchIndexPath = "public/search-index.json";
-    let searchIndex = [];
-    try {
-      const existing = await fs.readFile(searchIndexPath, "utf8");
-      searchIndex = JSON.parse(existing);
-    } catch (e) {
-      console.log("Search index not found, creating new one.", e);
-    }
-
     const summary = {
       title: newBlog.title,
       slug: newBlog.slug,
@@ -99,9 +89,6 @@ export async function POST(req: Request) {
       featuredImage: newBlog.featuredImage,
       author: newBlog.author,
     };
-
-    searchIndex.push(summary);
-    await fs.writeFile(searchIndexPath, JSON.stringify(searchIndex, null, 2));
 
     return NextResponse.json({ success: true, data: summary }, { status: 201 });
   } catch (error) {
