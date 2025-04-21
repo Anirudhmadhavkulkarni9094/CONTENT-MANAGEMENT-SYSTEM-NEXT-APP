@@ -3,7 +3,6 @@ import { put } from "@vercel/blob"; // or your own blob upload logic
 import {connectDB} from "../../../lib/db"; // your Mongo connect
 import readingTime from "reading-time";
 import slugify from "slugify";
-import fs from "fs/promises";
 import BlogCollection from "../../../models/Blog"
 export async function POST(req: Request) {
   try {
